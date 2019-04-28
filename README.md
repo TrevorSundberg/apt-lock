@@ -38,6 +38,8 @@ RUN apt-get update && \
 RUN rm /usr/local/bin/apt-lock
 ```
 
+Note that running `apt-get update` no longer breaks determinism because the `apt-lock.json` will be preserved between runs. If you delete `apt-lock.json`, it will be as if you did a brand new updated installation.
+
 # limitations
 - Currently skips checking for packages whose version or architecture were manually specified.
 - Many command line parameters that affect the installations are not tested (e.g. `-s`, `--print-uris`).
