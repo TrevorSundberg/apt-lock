@@ -1,0 +1,31 @@
+{
+  "name": "apt-lock",
+  "version": "1.0.0",
+  "description": "Deterministically install Linux packages (think package-lock.json).",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TrevorSundberg/apt-lock.git"
+  },
+  "keywords": [
+    "apt",
+    "apt-get",
+    "aptitude",
+    "apk",
+    "lock",
+    "version",
+    "deterministic",
+    "docker",
+    "source-control"
+  ],
+  "author": "Trevor Sundberg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TrevorSundberg/apt-lock/issues"
+  },
+  "homepage": "https://github.com/TrevorSundberg/apt-lock#readme",
+  "dependencies": {
+    "execa": "^1.0.0"
+  }
+}
