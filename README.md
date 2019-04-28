@@ -16,6 +16,7 @@ If you run installs over multiple commands, then you should produce a separate l
 
 # usage with docker
 *This documentation is tentative and is awaiting the 1.0.0 release.*
+
 To ensure that the `apt-lock.json` file persists between runs, you must mount it with:
 
 `docker run -v /path/to/apt-lock.json:/home/apt-lock.json yourimage`
