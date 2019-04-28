@@ -1,5 +1,4 @@
-const execa = require('execa');
-const { log, error } = require('./utility.js');
+const { log, error, execute } = require('./utility.js');
 
 module.exports.validate = async (proc, args, installIndex, dependencies, visited) => {
   const installPackages = [];
@@ -25,7 +24,7 @@ module.exports.validate = async (proc, args, installIndex, dependencies, visited
     }
   }
 
-  await execa(proc, args, {
+  await execute(proc, args, {
     stdio: 'inherit'
   });
 
@@ -45,11 +44,11 @@ module.exports.validate = async (proc, args, installIndex, dependencies, visited
 
     log(`Validating package '${packageName}'`);
     const packageObject = dependencies[packageName] = dependencies[packageName] || {};
-    const policy = await execa('apt-cache', ['policy', packageName]);
+    const policy = await execute('apt-cache', ['policy', packageName]);
 
     const start = `${packageName}:`;
     if (!policy.stdout.startsWith(start)) {
-      error(`Expected '${policy.cmd}' to start with '${start}'`);
+      error(`Expected '${policy.cmd}' to start with '${start}', instead got '${policy.stdout}'`);
     }
 
     //  Installed: 2.8.22-1
@@ -78,9 +77,7 @@ module.exports.validate = async (proc, args, installIndex, dependencies, visited
       return;
     }
 
-    const show = await execa('apt-cache', ['show', `${packageName}=${version}`], {
-      maxBuffer: 1024 * 1024
-    });
+    const show = await execute('apt-cache', ['show', `${packageName}=${version}`]);
     const showObject = {};
 
     //Architecture: amd64

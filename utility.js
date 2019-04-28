@@ -1,3 +1,5 @@
+const { spawn } = require('child_process');
+
 module.exports.error = message => {
   console.error(`apt-lock: ${message}`);
   // eslint-disable-next-line no-process-exit
@@ -16,3 +18,33 @@ module.exports.sortKeys = unordered => {
   });
 };
 
+module.exports.execute = (command, args, options) => {
+  return new Promise((resolve, reject) => {
+    options = options || {};
+    options.stdio = options.stdio || 'pipe';
+    const child = spawn(command, args, options);
+
+    const readStream = (stream, chunks) => {
+      if (stream) {
+        stream.on('data', chunk => chunks.push(chunk));
+      }
+    };
+    const stdoutChunks = [];
+    const stderrChunks = [];
+    readStream(child.stdout, stdoutChunks);
+    readStream(child.stderr, stderrChunks);
+    child.on('error', reject);
+    child.on('close', e => {
+      const stdoutBuffer = Buffer.concat(stdoutChunks);
+      const stderrBuffer = Buffer.concat(stderrChunks);
+      resolve({
+        ...e,
+        stdout: stdoutBuffer.toString(),
+        stderr: stderrBuffer.toString(),
+        stdoutBuffer,
+        stderrBuffer,
+        cmd: `${command} ${args.join(' ')}`
+      });
+    });
+  });
+};
