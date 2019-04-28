@@ -7,7 +7,7 @@ const main = async () => {
   const args = process.argv.slice(3);
 
   if (!proc || proc === '-h' || proc === '-help' || proc === '--help' || proc === '/?') {
-    console.log('Usage: apt-lock <apt|apt-get> [--lock=./apt-lock.json] [options] install {packages}');
+    error('Usage: apt-lock <apt|apt-get> [--lock=./apt-lock.json] [options] install {packages}');
   }
 
   let lockFilePath = './apt-lock.json';
