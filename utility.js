@@ -1,5 +1,7 @@
 const { spawn } = require('child_process');
 
+module.exports.options = {};
+
 module.exports.error = message => {
   console.error(`apt-lock: ${message}`);
   // eslint-disable-next-line no-process-exit
@@ -7,6 +9,9 @@ module.exports.error = message => {
 };
 
 module.exports.log = message => {
+  if (module.exports.options.silent) {
+    return;
+  }
   console.log(`apt-lock: ${message}`);
 };
 

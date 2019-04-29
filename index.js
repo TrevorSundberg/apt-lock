@@ -1,20 +1,29 @@
 const fs = require('fs');
-const { log, error, sortKeys } = require('./utility.js');
+const {
+  log, error, sortKeys, options
+} = require('./utility.js');
 const aptValidate = require('./apt.js').validate;
 
 const main = async () => {
-  const proc = process.argv[2];
-  const args = process.argv.slice(3);
+  const args = process.argv.slice(2);
+
+  const findAndRemoveArg = (name, defaultValue) => {
+    const switchName = `--${name}`;
+    const index = args.findIndex(arg => arg.startsWith(switchName));
+    if (index !== -1) {
+      const arg = args.splice(index, 1)[0];
+      return arg.split('=').pop();
+    }
+    return defaultValue;
+  };
+
+  options.silent = findAndRemoveArg('silent', false);
+  const lockFilePath = findAndRemoveArg('lock', './apt-lock.json');
+
+  const proc = args.shift();
 
   if (!proc || proc === '-h' || proc === '-help' || proc === '--help' || proc === '/?') {
-    error('Usage: apt-lock <apt|apt-get> [--lock=./apt-lock.json] [options] install {packages}');
-  }
-
-  let lockFilePath = './apt-lock.json';
-  const lockFileSwitch = '--lock=';
-  const lockFileArg = args.find(arg => arg.startsWith(lockFileSwitch));
-  if (lockFileArg) {
-    lockFilePath = lockFileArg.slice(lockFileSwitch.length);
+    error('Usage: apt-lock [--lock=./apt-lock.json] [--silent] <apt|apt-get> [options] install {packages}');
   }
 
   let lockFile = {};
