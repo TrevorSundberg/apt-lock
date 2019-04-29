@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "Deterministically install Linux packages (think package-lock.json).",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build-linux-x64": "node node_modules/nexe/index.js index.js --target=linux-x64-8.1.4 --output=bin/apt-lock-x64",
+    "build-linux-x86": "node node_modules/nexe/index.js index.js --target=linux-x86-8.1.4 --output=bin/apt-lock-x86",
+    "build": "npm install --no-optional --no-progress --no-audit && npm run build-linux-x64 && npm run build-linux-x86"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TrevorSundberg/apt-lock.git"
@@ -25,5 +29,8 @@
     "url": "https://github.com/TrevorSundberg/apt-lock/issues"
   },
   "homepage": "https://github.com/TrevorSundberg/apt-lock#readme",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "nexe": "^3.2.0"
+  }
 }
