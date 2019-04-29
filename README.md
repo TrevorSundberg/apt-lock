@@ -1,8 +1,8 @@
 # apt-lock
+A wrapper around `apt` and `apt-get` that enforces package install determinism. Inspired by `package-lock.json` from npm.
 <p align="center">
   <img src="https://trevorsundberg.github.io/apt-lock-small.gif">
 </p>
-A wrapper around `apt` and `apt-get` that enforces package install determinism. Inspired by `package-lock.json` from npm.
 
 # usage
 `apt-lock apt-get install yourpackage`
