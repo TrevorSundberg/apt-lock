@@ -1,5 +1,7 @@
 # apt-lock
-![Command line usage](https://trevorsundberg.github.io/apt-lock.gif)
+<p align="center">
+  <img src="https://trevorsundberg.github.io/apt-lock-small.gif">
+</p>
 A wrapper around `apt` and `apt-get` that enforces package install determinism. Inspired by `package-lock.json` from npm.
 
 # usage
