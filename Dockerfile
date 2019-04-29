@@ -1,7 +1,11 @@
 FROM ubuntu:bionic-20190424
 
-RUN wget -O /usr/local/bin/apt-lock https://github.com/TrevorSundberg/apt-lock/releases/download/v1.0.0/apt-lock_1.0.0_amd64
+# Alternatively install wget or curl to download it or include it in the docker build context.
+ADD https://github.com/TrevorSundberg/apt-lock/releases/download/v1.0.0/apt-lock-x64 /usr/local/bin/apt-lock
 RUN chmod +x /usr/local/bin/apt-lock
+
+# We need the apt-lock.json from our build context.
+COPY apt-lock.json .
 
 RUN apt-get update && \
     apt-lock apt-get install -y --no-install-recommends \

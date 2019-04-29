@@ -4,8 +4,8 @@
   "description": "Deterministically install Linux packages (think package-lock.json).",
   "main": "index.js",
   "scripts": {
-    "build-linux-x64": "node node_modules/nexe/index.js index.js --target=linux-x64-8.1.4 --output=bin/apt-lock-x64",
-    "build-linux-x86": "node node_modules/nexe/index.js index.js --target=linux-x86-8.1.4 --output=bin/apt-lock-x86",
+    "build-linux-x64": "node node_modules/nexe/index.js index.js --target=linux-x64-10.15.3 --output=bin/apt-lock-x64",
+    "build-linux-x86": "node node_modules/nexe/index.js index.js --target=linux-x86-10.15.3 --output=bin/apt-lock-x86",
     "build": "npm install --no-optional --no-progress --no-audit && npm run build-linux-x64 && npm run build-linux-x86"
   },
   "repository": {

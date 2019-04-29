@@ -28,8 +28,9 @@ const main = async () => {
 
   let lockFile = {};
   if (fs.existsSync(lockFilePath)) {
-    const lockJson = fs.readFileSync(lockFilePath, 'utf8');
+    log(`Reading lock file '${lockFilePath}'`);
     try {
+      const lockJson = fs.readFileSync(lockFilePath, 'utf8');
       lockFile = JSON.parse(lockJson);
     } catch (err) {
       error(`Unable to read lock file '${lockFilePath}': ${err.message}`);
