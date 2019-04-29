@@ -21,7 +21,6 @@ A wrapper around `apt` and `apt-get` that enforces package install determinism. 
 Any extra arguments will be transparently passed through, such as `--yes`, `--no-install-recommends`, etc.
 
 # usage with docker
-An example docker image:
 ```dockerfile
 FROM ubuntu:bionic-20190424
 
@@ -43,7 +42,11 @@ RUN apt-get update && \
 RUN rm /usr/local/bin/apt-lock
 ```
 
-When we build our image, make sure that the `apt-lock.json` file is in the current directory (or the docker build context):
+If the `apt-lock.json` does not exist yet, then the docker `COPY` will fail. In that case we create an empty file:
+
+`touch apt-lock.json`
+
+When we build our image, make sure that `apt-lock.json` in the build directory (the docker build context):
 
 `docker build -t yourimage .`
 
