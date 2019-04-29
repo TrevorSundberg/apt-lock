@@ -54,6 +54,14 @@ To ensure that the `apt-lock.json` file persists between runs if anything change
 
 `docker run --rm --entrypoint cat yourimage /apt-lock.json > ./apt-lock.json`
 
+Now if you run build the image again:
+
+`docker build -t yourimage .`
+
+You should see apt-lock installing specific deterministic versions that it read from the last install:
+
+`apt-lock: Installing package 'g++:amd64=4:7.3.0-3ubuntu2.1'`
+
 Note that running `apt-get update` no longer breaks determinism because the `apt-lock.json` will be preserved between runs. If you delete `apt-lock.json`, it will be as if you did a brand new updated installation.
 
 # limitations
