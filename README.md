@@ -21,17 +21,16 @@ A wrapper around `apt` and `apt-get` that enforces package install determinism. 
 Any extra arguments will be transparently passed through, such as `--yes`, `--no-install-recommends`, etc.
 
 # usage with docker
-*This documentation is tentative and is awaiting the 1.0.0 release.*
-
-To ensure that the `apt-lock.json` file persists between runs, you must mount it with:
-
-`docker run -v /path/to/apt-lock.json:/home/apt-lock.json yourimage`
-
+An example docker image:
 ```dockerfile
 FROM ubuntu:bionic-20190424
 
-RUN wget -O /usr/local/bin/apt-lock https://github.com/TrevorSundberg/apt-lock/releases/download/v1.0.0/apt-lock_1.0.0_amd64
+# Alternatively install wget or curl to download it or include it in the docker build context.
+ADD https://github.com/TrevorSundberg/apt-lock/releases/download/v1.0.0/apt-lock-x64 /usr/local/bin/apt-lock
 RUN chmod +x /usr/local/bin/apt-lock
+
+# We need the apt-lock.json from our build context.
+COPY apt-lock.json .
 
 RUN apt-get update && \
     apt-lock apt-get install -y --no-install-recommends \
@@ -43,6 +42,14 @@ RUN apt-get update && \
 
 RUN rm /usr/local/bin/apt-lock
 ```
+
+When we build our image, make sure that the `apt-lock.json` file is in the current directory (or the docker build context):
+
+`docker build -t yourimage .`
+
+To ensure that the `apt-lock.json` file persists between runs if anything changes, we need to copy it out of the container after building. To do this we create a temporary container and utilize `cat` as our entrypoint:
+
+`docker run --rm --entrypoint cat yourimage /apt-lock.json > ./apt-lock.json`
 
 Note that running `apt-get update` no longer breaks determinism because the `apt-lock.json` will be preserved between runs. If you delete `apt-lock.json`, it will be as if you did a brand new updated installation.
 
