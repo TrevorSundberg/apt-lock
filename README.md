@@ -1,7 +1,7 @@
 # apt-lock
 A wrapper around `apt` and `apt-get` that enforces package install determinism. Inspired by `package-lock.json` from npm.
 <p align="center">
-  <img src="https://trevorsundberg.github.io/apt-lock-small.gif">
+  <img src="https://trevorsundberg.github.io/apt-lock.gif">
 </p>
 
 # usage
