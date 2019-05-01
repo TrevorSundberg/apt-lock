@@ -1,5 +1,5 @@
 # apt-lock
-![](https://travis-ci.org/TrevorSundberg/apt-lock.svg?branch=master")
+[![Build Status](https://travis-ci.org/TrevorSundberg/apt-lock.svg?branch=master)](https://travis-ci.org/TrevorSundberg/apt-lock)
 
 A wrapper around `apt` and `apt-get` that enforces package install determinism. Inspired by [package-lock.json](https://docs.npmjs.com/files/package-lock.json) from npm.
 <p align="center">
