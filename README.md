@@ -70,8 +70,7 @@ Note that running `apt-get update` no longer breaks determinism because the `apt
 # limitations
 - Currently skips checking for packages whose version or architecture were manually specified.
 - Many command line parameters that affect the installations are not tested (e.g. `-s`, `--print-uris`).
-- Written in Node.js and packaged into an executable with nexe, so it's huge. Sorry it's not written in C.
 
 # future work
 - Get it working with alpine's `apk` so we can use it in [alpine](https://hub.docker.com/_/alpine) docker images.
-- Rewrite in C or C++ to make it considerably smaller.
+- Rewrite in C, C++, or shell to make it considerably smaller.
