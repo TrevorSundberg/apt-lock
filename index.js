@@ -18,6 +18,7 @@ const main = async () => {
   };
 
   options.silent = findAndRemoveArg('silent', false);
+  const freeze = findAndRemoveArg('freeze', false);
   const lockFilePath = findAndRemoveArg('lock', './apt-lock.json');
 
   const proc = args.shift();
@@ -27,10 +28,11 @@ const main = async () => {
   }
 
   let lockFile = {};
+  let lockJson;
   if (fs.existsSync(lockFilePath)) {
     log(`Reading lock file '${lockFilePath}'`);
     try {
-      const lockJson = fs.readFileSync(lockFilePath, 'utf8');
+      lockJson = fs.readFileSync(lockFilePath, 'utf8');
       if (lockJson.length !== 0) {
         lockFile = JSON.parse(lockJson);
       }
@@ -45,7 +47,7 @@ const main = async () => {
   };
 
   if (!managers[proc]) {
-    error('The first argument must be a supported package manager: apt, apt-get.');
+    error(`The first argument must be a supported package manager: apt, apt-get. We got '${proc}'.`);
   }
 
   const installIndex = args.findIndex(arg => arg === 'install');
@@ -67,7 +69,15 @@ const main = async () => {
 
   sortKeys(dependencies);
 
-  log(`Writing package lock file '${lockFilePath}'`);
-  fs.writeFileSync(lockFilePath, JSON.stringify(lockFile, null, 2), 'utf8');
+  const newLockJson = JSON.stringify(lockFile, null, 2);
+  if (freeze && lockJson) {
+    if (lockJson !== newLockJson) {
+      error(`Option freeze specified, but original '${lockFilePath}' differed ` +
+        `from the new output (were the packages changed?): ${newLockJson}`);
+    }
+  } else {
+    log(`Writing package lock file '${lockFilePath}'`);
+    fs.writeFileSync(lockFilePath, newLockJson, 'utf8');
+  }
 };
 main();

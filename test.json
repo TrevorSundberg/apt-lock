@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "cmake-data": {
+      "version": "3.10.2-1ubuntu2",
+      "integrity": "sha256-EovCYHEd/12XqvuaFyo/U2Ocvt6WNaiXO9DRKcwHqZI=",
+      "architecture": "all"
+    }
+  }
+}

@@ -6,7 +6,8 @@
   "scripts": {
     "build-linux-x64": "node node_modules/nexe/index.js index.js --target=linux-x64-10.15.3 --output=bin/apt-lock-linux-x64",
     "build-linux-x86": "node node_modules/nexe/index.js index.js --target=linux-x86-10.15.3 --output=bin/apt-lock-linux-x86",
-    "build": "npm install --no-optional --no-progress --no-audit && node ./node_modules/eslint/bin/eslint.js . && npm run build-linux-x64 && npm run build-linux-x86"
+    "build": "npm install --no-optional --no-progress --no-audit && node ./node_modules/eslint/bin/eslint.js . && npm run build-linux-x64 && npm run build-linux-x86",
+    "test": "./bin/apt-lock-linux-x64 --freeze --lock=test.json apt install cmake-data"
   },
   "repository": {
     "type": "git",
