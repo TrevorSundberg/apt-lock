@@ -1,5 +1,13 @@
 language: node_js
 node_js:
- - "node"
+- node
 script:
- - "npm run build"
+- npm run build
+deploy:
+  provider: releases
+  api_key:
+    secure: H0NdNTAdVyqut41jeVBTNcbZmNREeygm9l9pdrOhlJvA5JGkaouynSktJU50Gj1VD4jwhFXkZaaaAtJGDVewrZog+8/MKpmVCwdWOn38QGSQezvEyYRumxv/2hCTsrcRShXQfAkNK6g8g+BOhgsZgdis3kS6ayjnFGR9+abo8oLPc+HTVHUby330eKVXJCvcc1WG0ahZNxmQUvS9VIbiEZB/lHFxSp3pRAJEGokHYFn4xHw/lHBUluP17bAFD8mf8uk2o/GVTOxuW77q1gzPneYuBA4FLJpOGjQh6lmSpL2/WdqWxKNu7bdbut+aOFVp8O2W6LY3+2fWF/OlNMeS876/YteAA8vycIX/eG0V+RmswRvSj3Lx2Ks6NqvF5w0rOUJfS98kl2eP+xMranJPEVVyVdyByACqT6toDa9gKOPXPFkM8lk2hudVXImkEjrd3Qt9MW1E6sBbmtHflK0l3dDtXtQJYY2fKXAZ/Hw6lm1Ea/DbY6w5En2P6s1B/UnFVoSRSGd9k7GF4woyedNB8QvXcsM1nM6skJBMQzBrH8FSmAn/8p/ORqbWi9EM4/q1TkLXbbzkBZKiifqR1MLz+4GlHgQDk1zq7ZTUE6zxUw1oq6WB3Sj/kaP+D2wq8COa9K8rcz9ZQeLiqW8XCYCKk961fW0UnQg8/BUvKKS11Ck=
+  file: "./bin/apt-lock-linux-x86"
+  file: "./bin/apt-lock-linux-x64"
+  on:
+    repo: TrevorSundberg/apt-lock
