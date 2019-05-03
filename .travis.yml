@@ -5,7 +5,6 @@ script:
 - npm run build
 deploy:
   skip_cleanup: true
-  draft: true
   prerelease: true
   provider: releases
   api_key:
